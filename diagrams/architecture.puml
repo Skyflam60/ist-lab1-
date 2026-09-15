@@ -1,47 +1,19 @@
 @startuml
+
 top to bottom direction
 
-skinparam backgroundColor white
-skinparam shadowing false
-skinparam packageStyle rectangle
-skinparam componentStyle rectangle
+actor "Пользователь" as User
 
-actor "Пользователь:\nвладелец, администратор,\nврач, руководитель" as User
+rectangle "Веб-интерфейс\n(сайт)" as Web
+rectangle "Сервер" as Server
+database "База данных" as DB
+rectangle "Уведомления" as Notifications
+cloud "Email" as Email
 
-package "Клиентская часть" #FFF8D6 {
-    [Веб-интерфейс] as Web
-}
-
-package "Серверная часть" #EAF6EA {
-    [API-сервер] as API
-
-    [Сервис\nаутентификации] as Auth
-    [Сервис владельцев\nи животных] as Pets
-    [Сервис расписания\nи приёмов] as Visits
-    [Сервис медицинских\nзаписей] as Medical
-    [Сервис уведомлений] as Notifications
-    [Сервис отчётов] as Reports
-}
-
-database "База данных\nветеринарной клиники" as DB
-cloud "Почтовый сервис" as Mail
-
-User --> Web : Работа в браузере
-Web --> API : HTTPS / REST API
-
-API --> Auth : Проверка учётных данных\nи прав доступа
-API --> Pets : Владельцы и животные
-API --> Visits : Запись, перенос,\nотмена и проведение приёма
-API --> Medical : Диагнозы,\nназначения и история лечения
-API --> Notifications : События для отправки\nуведомлений
-API --> Reports : Запрос отчётов\nи статистики
-
-Auth --> DB : SQL: пользователи,\nроли
-Pets --> DB : SQL: владельцы,\nживотные
-Visits --> DB : SQL: расписание,\nприёмы
-Medical --> DB : SQL: медицинские записи,\nдиагнозы, назначения
-Reports --> DB : SQL: статистические\nданные
-
-Notifications --> Mail : Email-уведомления\nо приёмах
+User --> Web : Открывает сайт
+Web --> Server : Запросы
+Server --> DB : Хранение данных
+Server --> Notifications : Отправить уведомление
+Notifications --> Email : Письмо владельцу
 
 @enduml
