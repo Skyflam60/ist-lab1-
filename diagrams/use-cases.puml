@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+skinparam usecase {
+    BackgroundColor #E8F0FE
+    BorderColor #3F6FA3
+    FontColor #1D3557
+}
+
+skinparam actor {
+    BorderColor #3F6FA3
+    BackgroundColor white
+}
+
+actor "Владелец\nживотного" as Owner
+actor "Администратор\nклиники" as Admin
+actor "Ветеринарный\nврач" as Doctor
+actor "Руководитель\nклиники" as Manager
+actor "Администратор\nсистемы" as SysAdmin
+
+rectangle "Система управления ветеринарной клиникой" {
+
+    usecase "Авторизация" as UCAuth
+
+    usecase "Просмотреть данные\nсвоего животного" as UCViewPet
+    usecase "Просмотреть историю\nлечения животного" as UCHistory
+    usecase "Отменить запись\nна приём" as UCCancelOwner
+
+    usecase "Зарегистрировать\nвладельца" as UCRegisterOwner
+    usecase "Зарегистрировать\nживотное" as UCRegisterPet
+    usecase "Записать животное\nна приём" as UCBookVisit
+    usecase "Перенести или отменить\nприём" as UCChangeVisit
+    usecase "Просмотреть расписание\nврачей" as UCViewSchedule
+
+    usecase "Просмотреть своё\nрасписание" as UCMySchedule
+    usecase "Провести приём" as UCConductVisit
+    usecase "Создать медицинскую\nзапись" as UCCreateRecord
+    usecase "Назначить лечение" as UCPrescribeTreatment
+    usecase "Просмотреть историю\nлечения" as UCDoctorHistory
+
+    usecase "Сформировать\nотчёт" as UCGenerateReport
+    usecase "Просмотреть\nстатистику" as UCStatistics
+
+    usecase "Управлять\nпользователями и ролями" as UCManageUsers
+    usecase "Управлять справочниками\nврачей и специализаций" as UCManageDirectories
+}
+
+Owner --> UCAuth
+Owner --> UCViewPet
+Owner --> UCHistory
+Owner --> UCCancelOwner
+
+Admin --> UCAuth
+Admin --> UCRegisterOwner
+Admin --> UCRegisterPet
+Admin --> UCBookVisit
+Admin --> UCChangeVisit
+Admin --> UCViewSchedule
+
+Doctor --> UCAuth
+Doctor --> UCMySchedule
+Doctor --> UCConductVisit
+Doctor --> UCCreateRecord
+Doctor --> UCPrescribeTreatment
+Doctor --> UCDoctorHistory
+
+Manager --> UCAuth
+Manager --> UCGenerateReport
+Manager --> UCStatistics
+
+SysAdmin --> UCAuth
+SysAdmin --> UCManageUsers
+SysAdmin --> UCManageDirectories
+
+UCRegisterPet .> UCRegisterOwner : <<include>>
+UCBookVisit .> UCViewSchedule : <<include>>
+UCConductVisit .> UCCreateRecord : <<include>>
+UCCreateRecord .> UCPrescribeTreatment : <<include>>
+UCHistory .> UCViewPet : <<include>>
+UCDoctorHistory .> UCConductVisit : <<extend>>
+UCStatistics .> UCGenerateReport : <<include>>
+
+@enduml
