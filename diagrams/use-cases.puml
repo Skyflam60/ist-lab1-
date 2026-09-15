@@ -29,8 +29,6 @@ Owner --> UC6
 
 Manager --> UC7
 
-UC4 .> UC5 : <<include>>
-
 @endumlDoctor --> UCMySchedule
 Doctor --> UCConductVisit
 Doctor --> UCCreateRecord
