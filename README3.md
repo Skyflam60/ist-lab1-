@@ -115,8 +115,6 @@ sequenceDiagram
     Frontend-->>Администратор: Отображает подтверждение записи
 ```
 
-Исходный код диаграммы: [`diagrams/sequence_appointment_notification.mmd`](diagrams/sequence_appointment_notification.mmd)
-
 ---
 
 ## Шаг 4.
@@ -227,7 +225,7 @@ graph TD
     NOTIFY -->|"Email / SMS"| EMAIL
 ```
 
-Исходный код диаграммы: [`diagrams/architecture.mmd`](diagrams/architecture.mmd)
+\\\
 
 ### Диаграмма взаимодействия компонентов
 
@@ -273,7 +271,7 @@ graph TD
 {
   "id": 42,
   "status": "scheduled",
-  "message": "Приём успешно создан. Уведомление отправлено владельцу."
+  "message": "Приём успешно создан. Уведомление отправлено владельцу"
 }
 ```
 
